@@ -1,0 +1,10 @@
+<h1><%= @event.location %></h1>
+<h2><%= @event.date %></h2>
+
+<p>Attend event or something</p>
+
+<%= form_with model: @attendance do |form|%>
+  <%= form.hidden_field :attendee_id, value: current_user.id %>
+  <%= form.hidden_field :attended_event_id, value: params[:id] %>
+  <%= form.submit "Attend"%>
+<% end %>

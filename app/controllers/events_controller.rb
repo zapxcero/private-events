@@ -15,6 +15,11 @@ class EventsController < ApplicationController
   def new
     @user = current_user
   end
+
+  def show
+    @event = Event.find(params[:id])
+    @attendance = Attendance.new
+  end
   
   private
 

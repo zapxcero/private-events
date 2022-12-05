@@ -6,4 +6,5 @@ Rails.application.routes.draw do
 
   resources :users, only: %i[show]
   resources :events, only: %i[index new create show]
+  resources :attendances, only: %i[create]
 end

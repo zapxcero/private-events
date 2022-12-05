@@ -1,7 +1,14 @@
 <h1>All Events</h1>
-
+<% if user_signed_in? %>
+  <p>Logged in</p>
+  <% else %>
+  <p>Not Logged in</p>
+<% end %>
 <ul>
 <% @events.each do |event|%>
-<li><%=event.location%><%=event.date%></li>
+<li><%=link_to event.location, event_path(event) %> <%=event.date%></li>
+
 <% end %>
 </ul>
+
+<%= link_to "Logout", destroy_user_session_path, data: {turbo_method: :delete}%>
