@@ -20,7 +20,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     @attendance = Attendance.new
   end
-  
+
   private
 
   def event_params
