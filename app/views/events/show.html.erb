@@ -8,3 +8,8 @@
   <%= form.hidden_field :attended_event_id, value: params[:id] %>
   <%= form.submit "Attend"%>
 <% end %>
+
+<h2>Events Attended</h2>
+<% @event.attendances.each do |attendance| %>
+<li><%= attendance.attendee.email %> </li>
+<% end %>
