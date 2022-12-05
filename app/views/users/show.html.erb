@@ -6,4 +6,9 @@
 <% end %>
 </ul>
 
+<h2>Events Attended</h2>
+<% @user.attendances.each do |attendance| %>
+<li><%= attendance.attended_event.location %> <%= attendance.attended_event.date %></li>
+<% end %>
+
 <%= link_to "New Event", new_event_path%>
