@@ -1,14 +1,28 @@
-<h1>Your Events</h1>
-
+<h1><%= @user.email%>'s Events</h1>
 <ul>
-<% @user.events.each do |event|%>
-<li><%=event.location%> <%=event.date%></li>
-<% end %>
+  <% if @user.events.exists? %>
+    <% @user.events.each do |event|%>
+      <li><%=event.location%> <%=event.date%></li>
+    <% end %>
+  <% end %>
 </ul>
-
-<h2>Events Attended</h2>
-<% @user.attendances.each do |attendance| %>
-<li><%= attendance.attended_event.location %> <%= attendance.attended_event.date %></li>
-<% end %>
-
+<% current_time = Time.now%>
+<h2>Future Events</h2>
+<% future_events =  Event.joins(:attendances).where("attendances.attendee_id = ?", @user.id).where("events.date > ?", current_time) %>
+<ul>
+  <% if future_events.exists? %>
+    <% future_events.each do |event|%>
+      <li><%=event.location%> <%=event.date%></li>
+    <% end %>
+  <% end %>
+</ul>
+<h2>Past Events</h2>
+<% past_events =  Event.joins(:attendances).where("attendances.attendee_id = ?", @user.id).where("events.date < ?", current_time) %>
+<ul>
+  <% if past_events.exists? %>
+    <% past_events.each do |event|%>
+      <li><%=event.location%> <%=event.date%></li>
+    <% end %>
+  <% end %>
+</ul>
 <%= link_to "New Event", new_event_path%>
