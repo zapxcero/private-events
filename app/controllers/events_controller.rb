@@ -14,11 +14,34 @@ class EventsController < ApplicationController
 
   def new
     @user = current_user
+    @event = @user.events.build
   end
+
+  def edit
+    @event = Event.find(params[:id])
+  end
+  def update
+    @user = current_user
+    @event = Event.find(params[:id])
+
+    if @event.update(event_params)
+      redirect_to @user
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
 
   def show
     @event = Event.find(params[:id])
     @attendance = Attendance.new
+  end
+
+  def destroy
+    @user = current_user
+    @event = @user.events.find(params[:id])
+    @event.destroy
+    redirect_to @user
   end
 
   private

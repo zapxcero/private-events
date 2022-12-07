@@ -1,28 +1,21 @@
-<h1><%= @user.email%>'s Events</h1>
-<ul>
-  <% if @user.events.exists? %>
-    <% @user.events.each do |event|%>
-      <li><%=event.location%> <%=event.date%></li>
-    <% end %>
-  <% end %>
-</ul>
+<%= render "user_events", user: @user%>
+<h2 class="title">Attended Events</h2>
 <% current_time = Time.now%>
-<h2>Future Events</h2>
-<% future_events =  Event.joins(:attendances).where("attendances.attendee_id = ?", @user.id).where("events.date > ?", current_time) %>
-<ul>
+<section class="section">
+  <h3 class="title">Future Events</h3>
+  <% future_events =  Event.joins(:attendances).where("attendances.attendee_id = ?", @user.id).where("events.date > ?", current_time) %>
   <% if future_events.exists? %>
     <% future_events.each do |event|%>
-      <li><%=event.location%> <%=event.date%></li>
+      <%= render "events/event", event: event%>
     <% end %>
   <% end %>
-</ul>
-<h2>Past Events</h2>
-<% past_events =  Event.joins(:attendances).where("attendances.attendee_id = ?", @user.id).where("events.date < ?", current_time) %>
-<ul>
+</section>
+<section class="section">
+  <h3 class="title">Past Events</h3>
+  <% past_events =  Event.joins(:attendances).where("attendances.attendee_id = ?", @user.id).where("events.date < ?", current_time) %>
   <% if past_events.exists? %>
     <% past_events.each do |event|%>
-      <li><%=event.location%> <%=event.date%></li>
+      <%= render "events/event", event: event%>
     <% end %>
   <% end %>
-</ul>
-<%= link_to "New Event", new_event_path%>
+</section>

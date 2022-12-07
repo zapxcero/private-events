@@ -1,0 +1,11 @@
+<section class="section">
+  <h1 class="title"><%= user.email%>'s Events</h1>
+  <%= link_to "New Event", new_event_path, class: "button is-primary"%>
+  <br>
+  <br>
+  <% if user.events.exists? %>
+    <% user.events.each do |event|%>
+      <%= render "events/event", event: event%>
+    <% end %>
+  <% end %>
+</section>

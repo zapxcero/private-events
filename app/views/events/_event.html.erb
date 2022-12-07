@@ -1,0 +1,32 @@
+<div class="card">
+  <header class="card-header">
+    <p class="card-header-title">
+      <% if user_signed_in? %>
+        <%= link_to event.location, event_path(event)%>
+      <% else %>
+        <%= event.location%>
+      <% end %>
+    </p>
+    <button class="card-header-icon" aria-label="more options">
+      <span class="icon">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+    </button>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      <%= event.date.strftime("%Y-%m-%d") %>
+    </div>
+  </div>
+  <footer class="card-footer">
+    <%# <a href="#" class="card-footer-item">Save</a>
+    <a href="#" class="card-footer-item">Edit</a> %>
+    <% if user_signed_in? and event.creator == current_user %>
+      <%= link_to "Delete", event_path(event), class: "card-footer-item", data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %>
+      <%= link_to "Edit", edit_event_path(event), class: "card-footer-item" %>
+    <% end %>
+  </footer>
+</div>

@@ -1,25 +1,15 @@
-<h1>All Events</h1>
-<% if user_signed_in? %>
-  <p>Logged in</p>
-  <%= link_to "User Profile", user_path(current_user)%>
-<% else %>
-  <p>Not Logged in</p>
-<% end %>
-<h2>Past Events</h2>
-<ul>
+<section class="section">
+  <h1 class="title">Events</h1>
+  <br>
+  <br>
+  <h2 class= "subtitle">Past Events</h2>
   <% @events.past.each do |event|%>
-    <li><%=link_to event.location, event_path(event) %> <%=event.date%></li>
+    <%= render "event", event: event%>
   <% end %>
-</ul>
-<h2>Future Events</h2>
-<ul>
+  <br>
+  <br>
+  <h2 class= "subtitle">Future Events</h2>
   <% @events.future.each do |event|%>
-    <li><%=link_to event.location, event_path(event) %> <%=event.date%></li>
+    <%= render "event", event: event%>
   <% end %>
-</ul>
-<% if user_signed_in? %>
-  <%= link_to "Logout", destroy_user_session_path, data: {turbo_method: :delete}%>
-<% else %>
-  <%= link_to "Login", new_user_session_path %>
-  <%= link_to "Sign Up", new_user_registration_path %>
-<% end %>
+</section>

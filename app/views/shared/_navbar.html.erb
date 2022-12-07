@@ -1,0 +1,29 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <%= link_to "Event Try", root_path, class: "navbar-item"%>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <% if user_signed_in? %>
+        <%= link_to "Profile", user_path(current_user), class: "navbar-item"%>
+      <% end %>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <% if user_signed_in? %>
+            <%= link_to "Logout", destroy_user_session_path, class: "button is-light",data: {turbo_method: :delete}%>
+          <% else %>
+            <%= link_to "Sign Up", new_user_registration_path, class: "button is-primary"%>
+            <%= link_to "Login", new_user_session_path,class: "button is-light"%>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
